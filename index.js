@@ -13,6 +13,12 @@ bot.on('text', (msg) => {
     const text = msg.text;
     const chat_id = msg.chat.id;
 
+    if (text === '/start') {
+        bot.sendMessage(chat_id, 'Привет!');
+        send_help(chat_id);
+        return;
+    }
+
     if (!functions.validate_text(text)) {
         bot.sendMessage(chat_id, 'Неверный запрос.');
         send_help(chat_id);
