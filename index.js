@@ -4,12 +4,18 @@ const functions = require('./functions');
 const token = '5798021649:AAFJIMGU2de9qvkHJrflMfhzLrlIVaxZVUM';
 const bot = new TelegramBotApi(token, {polling: true});
 
+function send_help(chat_id) {
+    const output = 'Формат запроса: [страна] [валюта] [цена] [количество]';
+    bot.sendMessage(chat_id, output);
+}
+
 bot.on('text', (msg) => {
     const text = msg.text;
     const chat_id = msg.chat.id;
 
     if (!functions.validate_text(text)) {
-        console.log('hui');
+        bot.sendMessage(chat_id, 'Неверный запрос.');
+        send_help(chat_id);
         return;
     }
     const input = functions.convert_input(text.split(/\s+/));
